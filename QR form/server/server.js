@@ -520,11 +520,16 @@ app.get("/api/health", (req, res) => {
 // Port 5001 is hardcoded in .env  (PORT=5001)
 // ============================================================
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
-    console.log("====================================");
-    console.log("  AeroKnow Safety Report Server");
-    console.log("  Port:", PORT);
-    console.log("  Data dir:", DATA_DIR);
-    console.log("  Client URL:", CLIENT_URL);
-    console.log("====================================");
-});
+
+if (process.env.NODE_ENV !== "production") {
+    app.listen(PORT, () => {
+        console.log("====================================");
+        console.log("  AeroKnow Safety Report Server");
+        console.log("  Port:", PORT);
+        console.log("  Data dir:", DATA_DIR);
+        console.log("  Client URL:", CLIENT_URL);
+        console.log("====================================");
+    });
+}
+
+module.exports = app;
